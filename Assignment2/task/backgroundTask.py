@@ -8,6 +8,7 @@ from globalVar.types import ASSETS_DIR, studentsQueue
 
 class BackgroundService():
     def __init__(self):
+        print('Starting background task')
         daemon = threading.Thread(target=self.backgroundService, daemon=True, name='JSON Files Async')
         daemon.start()
 
@@ -23,19 +24,21 @@ class BackgroundService():
                 fStudents.close()
                 studentsData = []
             
-            fStudents = open(ASSETS_DIR + 'students.json', 'w')
-            
             studentsWaiting = studentsQueue.get()
             
-            for idx, obj in enumerate(studentsData):
-                for idx_, obj_ in enumerate(studentsWaiting): 
-                    if obj['studentCode'] == obj_['data']['studentCode']:
-                        studentsData.pop(idx)
-                    if obj_['action'] == 'add':
-                        studentsData.append(obj_['data'])
+            for idx, obj in enumerate(studentsData): 
+                if obj['studentCode'] == studentsWaiting['data']['studentCode']:
+                    studentsData.pop(idx)
+
+            if studentsWaiting['action'] == 'add':
+                studentsData.append(studentsWaiting['data'])
                     
             studentsData = sorted(studentsData, key=lambda k: k['studentName'])
             
+            fStudents = open(ASSETS_DIR + 'students.json', 'w+', encoding='utf8')
             fStudents.write(json.dumps(studentsData, indent=4))
+            fStudents.close()
+
+            print(studentsData)
             
             time.sleep(0.1)

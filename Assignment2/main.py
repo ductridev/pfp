@@ -1,5 +1,6 @@
 import sys
 import json
+import time
 from pynput import keyboard
 
 from student.studentService import Student
@@ -26,14 +27,13 @@ class Main:
             if len(studentsData) > 0:
                 print('Students List: ')
                 for idx, obj in enumerate(studentsData):
-                    print('---------------------------')
                     print('''
 Student code: %s
 Student name: %s
 Date of birth: %s
 Learning point: %s
                     ''' % (obj['studentCode'], obj['studentName'], obj['birthdate'], obj['learningPoint']))
-                    print(studentsData)
+                    print('---------------------------')
             else:
                 print('There are no students on the list!')
             print('Press enter to continue, Esc to return the main menu!')
@@ -42,9 +42,13 @@ Learning point: %s
                     if event.key == keyboard.Key.esc:
                         return
                     else:
-                        pass
+                        if isinstance(event, keyboard.Events.Release):
+                            pass
+                        else :
+                            input()
+                            break
     
-    def studentList(self, studentName):
+    def studentLookUp(self, studentName):
         while True:
             studentName = input('Please enter student name: ')
             try:
@@ -59,14 +63,14 @@ Learning point: %s
                 
             if len(studentsData) > 0:
                 for idx, obj in enumerate(studentsData):
-                    if obj['studentName'] == studentName:
+                    if str(obj['studentName']).find(studentName) != -1:
                         print('''
 Student code: %s
 Student name: %s
 Date of birth: %s
 Learning point: %s
                         ''' % (obj['studentCode'], obj['studentName'], obj['birthdate'], obj['learningPoint']))
-                        return
+                        print('---------------------------')
             else:
                 print('There are no students on the list!')
             print('Press enter to continue, Esc to return the main menu!')
@@ -75,7 +79,11 @@ Learning point: %s
                     if event.key == keyboard.Key.esc:
                         return
                     else:
-                        pass
+                        if isinstance(event, keyboard.Events.Release):
+                            pass
+                        else :
+                            input()
+                            break
     
     def addStudent(self):
         while True:
@@ -91,7 +99,11 @@ Learning point: %s
                     if event.key == keyboard.Key.esc:
                         return
                     else:
-                        pass
+                        if isinstance(event, keyboard.Events.Release):
+                            pass
+                        else :
+                            input()
+                            break
     
     def removeStudent(self, studentCode):
         while True:
@@ -112,7 +124,11 @@ Learning point: %s
                     if event.key == keyboard.Key.esc:
                         return
                     else:
-                        pass                
+                        if isinstance(event, keyboard.Events.Release):
+                            pass
+                        else :
+                            input()
+                            break              
     
     def start(self):
         while True:
@@ -130,17 +146,18 @@ Learning point: %s
                 pass
             match selected:
                 case 1:
+                    print('Enter new student:')
                     self.addStudent()
                 case 2:
                     studentName = print('Enter student name to look up: ')
-                    self.studentList(studentName=studentName)
+                    self.studentLookUp(studentName=studentName)
                 case 3:
                     self.studentList()
                 case 4:
                     print('Enter new student:')
                     self.addStudent()
                 case 5:
-                    studentCode = print('Enter student code to remove: ')
+                    studentCode = input('Enter student code to remove: ')
                     self.removeStudent(studentCode)
                 case 6:
                     break

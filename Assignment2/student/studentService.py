@@ -2,10 +2,11 @@ import sys
 
 sys.path.append('../globalVar')
 from globalVar.types import studentsQueue
-
+sys.path.append('../task')
+from task.backgroundTask import BackgroundService
 class Student:
     def __init__(self):
-        pass
+        BackgroundService()
         
     def add(self, studentCode, studentName, birthdate, learningPoint):
         studentsQueue.put({'action': 'add', 'data': {'studentCode': studentCode, 'studentName': studentName,

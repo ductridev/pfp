@@ -1,0 +1,20 @@
+[
+    {
+        "studentCode": "te128",
+        "studentName": "abc",
+        "birthdate": "124",
+        "learningPoint": "3.7"
+    },
+    {
+        "studentCode": "te123",
+        "studentName": "test name",
+        "birthdate": "123",
+        "learningPoint": "3.5"
+    },
+    {
+        "studentCode": "te126",
+        "studentName": "test name 2",
+        "birthdate": "123",
+        "learningPoint": "3.9"
+    }
+]
