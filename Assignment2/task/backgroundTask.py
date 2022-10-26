@@ -38,7 +38,5 @@ class BackgroundService():
             fStudents = open(ASSETS_DIR + 'students.json', 'w+', encoding='utf8')
             fStudents.write(json.dumps(studentsData, indent=4))
             fStudents.close()
-
-            print(studentsData)
             
             time.sleep(0.1)
